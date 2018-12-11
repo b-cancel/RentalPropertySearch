@@ -1,7 +1,7 @@
 EQUAL CONTRIBUTIONS BY
 
 - Jafet Reyes
-- Gerardo Guerrero 
+- Gerardo Guerrero / Durzo95
 - Bryan Cancel
 
 
