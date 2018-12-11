@@ -1,5 +1,14 @@
+EQUAL CONTRIBUTIONS BY
+
+- Jafet Reyes
+- Gerardo Guerrero 
+- Bryan Cancel
+
+
 ORDER IS IMPORTANT
 
+-1. install xampp and run apache and sql
+0. import the database file in the database folder into http://localhost/phpmyadmin/
 1. .gitignore should contain
     FOLDERS
     a. generated-conf 
