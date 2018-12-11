@@ -1,0 +1,28 @@
+#formContainer {
+    margin: auto;
+}
+
+#formCard {
+    width: 100%;
+    max-width: 500px;
+    display: block !important;
+}
+
+#formState, #error {
+    display: none;
+}
+
+#switcher {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#formTitle, .form-group {
+    margin: 0px;
+    margin-top: 15px;
+}
+
+#error {
+    margin-bottom: 5px;
+    margin-top: 5px;
+}

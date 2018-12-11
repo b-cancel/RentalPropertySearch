@@ -1,0 +1,39 @@
+.phoneRow > div {
+    margin: 5px;
+    display:inline-block;
+}
+
+.phoneRow > div:first-child {
+    margin-left: 0px;
+}
+
+.phoneRow > div:last-child {
+    margin-right: 0px;
+}
+
+.fa-plus {
+    margin-left: 5px;
+}
+
+.col-auto {
+    margin-right: 0px;
+    padding-right: 0px;
+}
+
+.error {
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.style1 {
+    margin: 0px;
+}
+
+#addNumber {
+    margin: 5px;
+    margin-right: 0px;
+}
+
+.col-auto {
+    margin-right: 0px;
+}

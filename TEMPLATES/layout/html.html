@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!--favicon code for different browsers-->
+    <link rel="icon" 
+    type="image/x-icon" 
+    href="{{ base_url() }}/../../IMAGES/favicon.ico">
+
+    <link rel="shortcut icon" 
+    type="image/x-icon" 
+    href="{{ base_url() }}/../../IMAGES/favicon.ico">
+
+    <link rel="address bar icon" 
+    type="image/x-icon" 
+    href="{{ base_url() }}/../../IMAGES/favicon.ico">
+
+    <!--website title-->
+    <title>APT SEARCH</title>
+
+    <!--ask permission to access style sheets-->
+    <script src="{{ base_url() }}/../../TEMPLATES/layout/permission.js"></script>
+
+    <!--bootstrap style sheet-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <!--https://www.w3schools.com/icons/-->
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css' integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU' crossorigin='anonymous'>
+
+    <!--make the base url accessible to javascript files-->
+    <script> var baseurl = "{{ base_url() }}"; </script>
+</head>
+<body>
+    <!--bootstrap javascript imports(includes jquery)-->
+    <script src="https://code.jquery.com/jquery-3.3.1.js"integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+    <!-- Back to top button -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,900,900i" rel="stylesheet">
+
+    <a id="scrollToTop"></a>
+
+    <!--nav bar-->
+    <div class="navbar navbar-expand-lg navbar-dark bg-dark" id="nav">
+        <!--what is ALWAYS displayed on the nav bar-->
+        <a class="navbar-brand" href="{{ base_url() }}">
+          <img src="{{ base_url() }}/../../IMAGES/favicon.ico" width="30" height="30" style="margin-right: 5px" class="d-inline-block align-top" alt="Logo">
+        </a>
+
+        <!--drop down button generated when screen becomes small-->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!--what the drop down button shows-->
+        <div class="collapse navbar-collapse" id="navbarText">
+          <!--LEFT Aligned Elements-->
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ base_url() }}/">Home</a>
+            </li>
+            {% if not user %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ base_url() }}/authentication">Sign Up</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link disabled" id="logout" href="#">Log Out</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" userID="{{user.getId()}}">Welcome, <span id="greeting">{{user.getName()}}</span></a>
+                </li>
+            {% endif %}
+          </ul>
+          <!--RIGHT Aligned Elements-->
+          {% if user %}
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ base_url() }}/manage">Manage</a> <!--TODO add the link to the manage page-->
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ base_url() }}/settings">Settings</a> <!--TODO add the link to the manage page-->
+                </li>
+            </ul>
+          {% endif %}
+        </div>
+    </div>
+
+    <!--body-->
+    <div id="body">
+        <div id="mainDiv">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+    <!--footer-->
+    <div id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <h2 class="logo"><a href="#"> <img src="{{ base_url() }}/../../IMAGES/favicon.ico" alt="Logo" height="100" width="100"></a></h2>
+                </div>
+                <div class="col-lg-2">
+                    <h5>Get started</h5>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Log in</a></li>
+                        <li><a href="#">Sign up</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h5>About us</h5>
+                    <ul>
+                        <li><a href="#">Company Information</a></li>
+                        <li><a href="#">Contact us</a></li>
+                        <li><a href="#">Reviews</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h5>Support</h5>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Help desk</a></li>
+                        <li><a href="#">Forums</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <div class="social-networks">
+                        <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+                        <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+                        <a href="#" class="google"><i class="fa fa-google-plus"></i></a>
+                    </div>
+                    <button type="button" class="btn btn-default">Contact us</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>All Rights Reserved © 2018 By : Jafet Reyes | Gerardo Guerrero | Bryan Cancel</p>
+            <p>Created For Educational Purposes</p>
+        </div>
+    </div>
+
+    <!--layout style sheet-->
+    <link rel="stylesheet" href="{{ base_url() }}/../../PUBLIC/shared/css.css">
+    <link rel="stylesheet" href="{{ base_url() }}/../../TEMPLATES/layout/css.css">
+
+    <!--javascript-->
+    <script type="module" src="{{ base_url() }}/../../PUBLIC/shared/js.js"></script>
+    <script src="{{ base_url() }}/../../TEMPLATES/layout/js.js"></script>
+
+    {% block styles %}{% endblock %}
+    {% block scripts %}{% endblock %}
+</body>
+</html>

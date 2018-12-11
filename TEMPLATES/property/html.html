@@ -1,0 +1,269 @@
+{% extends 'layout/html.html' %}
+
+{% block content %}
+
+    {% if add %}
+        <h1>ADD PROPERTY PAGE</h1>
+        <br>
+        <ol>
+            <li>this should have a section where you area allowed to import photos by either specifying a file or a link</li>
+            <li>this should also have a section to specify of the regular property details</li>
+            <li>this should also have a section to add all the tags and everything associated with them</li>
+        </ol>
+    
+        <h1>
+            Add Property
+        </h1>
+        <hr>
+        <!--REGISTER CARD-->
+        <div class="container addProperty-container">
+            <div class="row">
+                <div class="col-md-6 newProperty-form-1">
+                    <form>
+                        <h3>Address Fields</h3>
+                        <div class="form-group">
+                            <input id="registerState" type="text" class="form-control" placeholder="State" value=""/>
+                        </div>
+                        <div class="form-group">
+                            <input id="registerLocality" type="text" class="form-control" placeholder="Locality/City" value=""/>
+                        </div>
+                        <div class="form-group">
+                            <input id="registerZipCode" type="text" class="form-control" placeholder="Zip Code" value=""/>
+                        </div>
+                        <div class="form-group">
+                            <input id="registerStreetName" type="text" class="form-control" placeholder="Street Name" value=""/>
+                        </div>
+                        <div class="form-group">
+                            <input id="registerBuildingNum" type="text" class="form-control" placeholder="Building Number" value=""/>
+                        </div>
+                        <div class="form-group">
+                            <input id="registerAptNum" type="text" class="form-control" placeholder="Apartment Number" value=""/>
+                        </div>
+                        <hr>
+                        <h3>Property Fields</h3>
+                        <div class="form-group">
+                            <input id="registerPostName" type="text" class="form-control" placeholder="postName" value=""/>
+                        </div>
+                        <div class="form-group">
+                            <input id="registerRent" type="text" class="form-control" placeholder="Rent" value=""/>
+                        </div>
+                        <div class="form-group">
+                            <input id="registerSqrFootage" type="text" class="form-control" placeholder="Square Footage" value=""/>
+                        </div>
+                        <div class="form-group">
+                            <input id="registerBedrooms" type="text" class="form-control" placeholder="Bedrooms" value=""/>
+                        </div>
+                        <div class="form-group">
+                            <input id="registerBathrooms" type="text" class="form-control" placeholder="Bathrooms" value=""/>
+                        </div>
+                        
+                        <hr>
+                        <h3>Feature Fields</h3>
+                        <div class="form-group">
+                            <h4>Appliances</h4>
+                            {% for appliance in applianceQuery %}
+                            <div class="row">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" applianceid = "{{appliance.getId()}}" id="{{appliance.getName()}}Label" value="{{appliance.getName()}}">
+                                    <label class="form-check-label" for="{{appliance.getName()}}Label">{{appliance.getName()}}</label>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group">
+                            <h4>Utilities</h4>
+                            {% for utility in utilityQuery %}
+                            <div class="row">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" utilityid = "{{utility.getId()}}" id="{{utility.getName()}}Label" value="{{utility.getName()}}">
+                                    <label class="form-check-label" for="{{utility.getName()}}Label">{{utility.getName()}}</label>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group">
+                            <h4>Perks</h4>
+                            {% for perk in perkQuery %}
+                            <div class="row">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" perkid="{{perk.getId()}}" id="{{perk.getName()}}Label" value="{{perk.getName()}}">
+                                    <label class="form-check-label" for="{{perk.getName()}}Label">{{perk.getName()}}</label>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group">
+                            <h4>Amenities</h4>
+                            {% for amenity in amenityQuery %}
+                            <div class="row">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" amenityid = "{{amenity.getId()}}" id="{{amenity.getName()}}Label" value="{{amenity.getName()}}">
+                                    <label class="form-check-label" for="{{amenity.getName()}}Label">{{amenity.getName()}}</label>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group">
+                            <div id="registerError" class="alert alert-dismissible d-none">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>DEFAULT ERROR MESSAGE</strong>
+                            </div>
+                            <!-- <a href="#" class="ForgetPwd" value="Login">Forget Password?</a> -->
+                        </div>
+                        <div class="form-group">
+                            <input id="registerSubmit" type="submit" class="btnSubmit btn btn-success" value="Register Property"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <h1>EDIT PROPERTY PAGE</h1>
+        <div class="container addProperty-container">
+            <div class="row">
+                <div class="col-md-6 newProperty-form-1">
+                    <form>
+                    
+                        <h3>Address Fields</h3>
+                        <div class="form-group">
+                            <input id="editState" type="text" class="form-control" placeholder="State" value="{{property.getState()}}"/>
+                        </div>
+                        <div class="form-group">
+                            <input id="editLocality" type="text" class="form-control" placeholder="Locality/City" value="{{property.getLocality()}}"/>
+                        </div>
+                        <div class="form-group">
+                            <input id="editZipCode" type="text" class="form-control" placeholder="Zip Code" value="{{property.getZipcode()}}"/>
+                        </div>
+                        <div class="form-group">
+                            <input id="editStreetName" type="text" class="form-control" placeholder="Street Name" value="{{property.getStreetname()}}"/>
+                        </div>
+                        <div class="form-group">
+                            <input id="editBuildingNum" type="text" class="form-control" placeholder="Building Number" value="{{property.getBuildingindentifier()}}"/>
+                        </div>
+                        <div class="form-group">
+                            <input id="editAptNum" type="text" class="form-control" placeholder="Apartment Number" value="{{property.getApartmentidentifier()}}"/>
+                        </div>
+                        <hr>
+                
+                        <h3 propertyid = "{{property.getId()}}">Property Fields</h3>
+                        <div class="form-group">
+                            <input id="editPostName" type="text" class="form-control" placeholder="postName" value="{{property.getPostname()}}"/>
+                        </div>
+                        <div class="form-group">
+                            <input id="editRent" type="text" class="form-control" placeholder="Rent" value="{{property.getExpectedrentpermonth()}}"/>
+                        </div>
+                        <div class="form-group">
+                            <input id="editSqrFootage" type="text" class="form-control" placeholder="Square Footage" value="{{property.getSquarefootage()}}"/>
+                        </div>
+                        <div class="form-group">
+                            <input id="editBedrooms" type="text" class="form-control" placeholder="Bedrooms" value="{{property.getBedroomcount()}}"/>
+                        </div>
+                        <div class="form-group">
+                            <input id="editBathrooms" type="text" class="form-control" placeholder="Bathrooms" value="{{property.getBathroomcount()}}"/>
+                        </div>
+                        
+
+                        <h3>Feature Fields</h3>
+                        <div class="form-group">
+                            <h4>Appliances</h4>
+                            {% for appliance in applianceQuery %}
+                            <div class="row">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" appliancetypeid = "{{appliance.getId()}}" id="{{appliance.getName()}}Label" value="{{appliance.getName()}}" {% if appliance.getApplianceRow(property.getId())%} checked {% endif %}>
+                                    <label class="form-check-label" for="{{appliance.getName()}}Label">{{appliance.getName()}}</label>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group">
+                            <h4>Utilities</h4>
+                            {% for utility in utilityQuery %}
+                            <div class="row">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" utilitytypeid = "{{utility.getId()}}" id="{{utility.getName()}}Label" value="{{utility.getName()}}" {% if utility.getUtilityRow(property.getId())%} checked {% endif %}>
+                                    <label class="form-check-label" for="{{utility.getName()}}Label">{{utility.getName()}}</label>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group">
+                            <h4>Perks</h4>
+                            {% for perk in perkQuery %}
+                            <div class="row">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" perktypeid="{{perk.getId()}}" id="{{perk.getName()}}Label" value="{{perk.getName()}}" {% if perk.getPerkRow(property.getId())%} checked {% endif %}>
+                                    <label class="form-check-label" for="{{perk.getName()}}Label">{{perk.getName()}}</label>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group">
+                            <h4>Amenities</h4>
+                            {% for amenity in amenityQuery %}
+                            <div class="row">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" amenitytypeid = "{{amenity.getId()}}" id="{{amenity.getName()}}Label" value="{{amenity.getName()}}" {% if amenity.getAmenityRow(property.getId())%} checked {% endif %}>
+                                    <label class="form-check-label" for="{{amenity.getName()}}Label">{{amenity.getName()}}</label>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group">
+                        <!--  -->
+                            <div id="editError" class="alert alert-dismissible d-none">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>DEFAULT ERROR MESSAGE</strong>
+                            </div>
+                            <!-- <a href="#" class="ForgetPwd" value="Login">Forget Password?</a> -->
+                        </div>
+                        <div class="form-group">
+                            <input id="editSubmit" type="submit" class="btnSubmit btn btn-success" value="Edit Property"/>
+                        </div>
+                    </form>
+                    
+                    <!-- The popup menu to add pictures, damn this is alot bud -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Add Picture</button>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">Add Picture
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="picturePopup">
+                        <div class="form-group">
+                            <label for="url" class="control-label">Picture URL</label>
+                            <input class="form-control" type="url" name="url" id="url" placeholder="https://website.com/picture.jpg" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="control-label">Description</label>
+                            <textarea class="form-control" id="picturDescription"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type "submit" id="submitPic" class="btn btn-primary">Submit</button>
+                        </div>
+                        </form>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}
+
+{% block styles %}
+    <!--style sheet-->
+    <link rel="stylesheet" href="{{ base_url() }}/../../PUBLIC/shared/css.css">
+    <link rel="stylesheet" href="{{ base_url() }}/../../TEMPLATES/property/css.css">
+{% endblock %}
+
+{% block scripts %}
+    <!--javascript-->
+    <script type="module" src="{{ base_url() }}/../../PUBLIC/shared/js.js"></script>
+    <script src="{{ base_url() }}/../../TEMPLATES/property/js.js"></script>
+{% endblock %}

@@ -1,0 +1,116 @@
+{% extends 'layout/html.html' %}
+
+{% block content %}
+
+    <h1>User Settings</h1>
+    <hr class="style1">
+    <!--name-->
+    <div class="form-group">
+        <label for="nameInput">Name</label>
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Name" value="{{ user.getName() }}" id="nameInput" disabled>
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" id="nameInputButton"><i class="fas fa-pen"></i></button>
+            </div>
+        </div>
+        <div id="nameError" class="alert-danger p-2 mb-2 error" style="display: none;"></div>
+    </div>
+    <!--email-->
+    <div class="form-group">
+        <label for="emailInput">Email</label>
+        <div class="input-group">
+            <input type="email" class="form-control" placeholder="Email" value="{{ user.getEmail() }}" id="emailInput" disabled>
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" id="emailInputButton"><i class="fas fa-pen"></i></button>
+            </div>
+        </div>
+        <div id="emailError" class="alert-danger p-2 mb-2 error" style="display: none;"></div>
+    </div>
+    <!--password-->
+    <div class="form-group passwordShowHide">
+        <label for="passwordInput">Password</label>
+        <div class="input-group">
+            <input type="password" class="form-control" placeholder="New Password" id="passwordInput" disabled>
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary showHide" type="button">
+                    <i class="hide far fa-eye-slash" style="display:none;"></i><i class="show far fa-eye"></i>
+                </button>
+                <button class="btn btn-outline-secondary" type="button" id="passwordInputButton"><i class="fas fa-pen"></i></button>
+            </div>
+        </div>
+        <div id="passwordError" class="alert-danger p-2 mb-2 error" style="display: none;"></div>
+    </div>
+    <!--phones-->
+    <div class="form-group">
+        <label>Phones</label>
+        {% for phone in phones %}
+            <div class="row phoneRow" id="{{ phone.getId() }}">
+                <div>
+                    <div class="input-group">
+                        <select class="form-control">
+                            <option value=""
+                                {% if phone.getDescription() == null %} selected="selected" {% endif %}
+                            ></option>
+                            <option value="Work"
+                                {% if phone.getDescription() == "Work" %} selected="selected" {% endif %}
+                            >Work</option>
+                            <option value="Mobile"
+                                {% if phone.getDescription() == "Mobile" %} selected="selected" {% endif %}
+                            >Mobile</option>
+                            <option value="Home"
+                                {% if phone.getDescription() == "Home" %} selected="selected" {% endif %}
+                            >Home</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="area code" value="{{ phone.getAreacode() }}" disabled>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button"><i class="fas fa-pen"></i></button>
+                        </div>
+                    </div>
+                </div>  
+                <div>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="number" value="{{ phone.getNumber() }}" disabled>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button"><i class="fas fa-pen"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="extension" value="{{ phone.getExtension() }}" disabled>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button"><i class="fas fa-pen"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <button type="button" class="btn btn-secondary" class="{{ phone.getId() }} phoneDelete"><i class="fas fa-times"></i></button>
+                </div>
+            </div>
+            <hr class="style1">
+        {% endfor %}
+        <div class="row phoneRow">
+            <div class="col"></div>
+            <div class="col-auto">
+                <button type="button" class="btn btn-primary" id="addNumber">Add New Number<i class="fas fa-plus"></i></button>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block styles %}
+    <!--style sheet-->
+    <link rel="stylesheet" href="{{ base_url() }}/../../PUBLIC/shared/css.css">
+    <link rel="stylesheet" href="{{ base_url() }}/../../TEMPLATES/settings/css.css">
+{% endblock %}
+
+{% block scripts %}
+    <!--javascript-->
+    <script type="module" src="{{ base_url() }}/../../PUBLIC/shared/js.js"></script>
+    <script src="{{ base_url() }}/../../TEMPLATES/settings/js.js"></script>
+{% endblock %}

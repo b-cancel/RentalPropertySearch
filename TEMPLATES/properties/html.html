@@ -1,0 +1,606 @@
+{% extends 'layout/html.html' %}
+
+{% block content %}
+<span id="allContent">
+
+    <!--imports required for slider-->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    {% if search %}
+        <div class="card">
+            <div class="card-header" id="allSections">
+                <h1>Filter By...</h1>
+                <hr class="style1">
+                <!--!!!!!!!!!!!!!!!!!!!!!!!!!Sliders!!!!!!!!!!!!!!!!!!!!!!!!!-->
+                <!--******************************Rent Slider*************************-->
+                <div class="row sliderContainer" id="rentSection" style="display: none;">
+                    <div class="col-auto sliderTitle">
+                        <h4>Rent</h4>
+                    </div>
+                    <div class="col-auto">
+                        <div class="input-group input-group-sm rentTag">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                            </div>
+                            <input type="text" class="form-control minText" value="{{ rentMin }}" placeholder="{{ actualRentMin }}">
+                        </div>
+                    </div>
+                    <div class="col" class="sliderClass">
+                        <div class="theSlider" style="margin-top: calc((1.8125rem + 2px)/3);"></div>
+                    </div>
+                    <div class="col-auto">
+                        <div class="input-group input-group-sm rentTag">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                            </div>
+                            <input type="text" class="form-control maxText" value="{{ rentMax }}" placeholder="{{ actualRentMax }}">
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" closeSectionID = "rentSection" class="btn btn-secondary sectionCloseButton">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <!--******************************Sqft Slider*************************-->
+                <div class="row sliderContainer" id="squareFootageSection" style="display: none;">
+                    <div class="col-auto sliderTitle">
+                        <h4>Square Footage</h4>
+                    </div>
+                    <div class="col-auto">
+                        <div class="input-group input-group-sm sqftTag">
+                            <input type="text" class="form-control minText" value="{{ squareFootageMin }}" placeholder="{{ actualSquareFootageMin }}">
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">sqft</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col" class="sliderClass">
+                        <div class="theSlider" style="margin-top: calc((1.8125rem + 2px)/3);"></div>
+                    </div>
+                    <div class="col-auto">
+                        <div class="input-group input-group-sm sqftTag">
+                            <input type="text" class="form-control maxText" value="{{ squareFootageMax }}" placeholder="{{ actualSquareFootageMax }}">
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">sqft</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" closeSectionID = "squareFootageSection" class="btn btn-secondary sectionCloseButton">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <!--******************************Bedrooms Slider*************************-->
+                <div class="row sliderContainer" id="bedSection" style="display: none;">
+                    <div class="col-auto sliderTitle">
+                        <h4>Bedrooms</h4>
+                    </div>
+                    <div class="col-auto">
+                        <div class="input-group input-group-sm textTag">
+                            <input type="text" class="form-control minText" value="{{ bedMin }}" placeholder="{{ actualBedMin }}">
+                        </div>
+                    </div>
+                    <div class="col" class="sliderClass">
+                        <div class="theSlider" style="margin-top: calc((1.8125rem + 2px)/3);"></div>
+                    </div>
+                    <div class="col-auto">
+                        <div class="input-group input-group-sm textTag">
+                            <input type="text" class="form-control maxText" value="{{ bedMax }}" placeholder="{{ actualBedMax }}">
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" closeSectionID = "bedSection" class="btn btn-secondary sectionCloseButton">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <!--******************************Bathrooms Slider*************************-->
+                <div class="row sliderContainer" id="bathSection" style="display: none;">
+                    <div class="col-auto sliderTitle">
+                        <h4>Bathrooms</h4>
+                    </div>
+                    <div class="col-auto">
+                        <div class="input-group input-group-sm textTag">
+                            <input type="text" class="form-control minText" value="{{ bathMin }}" placeholder="{{ actualBathMin }}">
+                        </div>
+                    </div>
+                    <div class="col" class="sliderClass">
+                        <div class="theSlider" style="margin-top: calc((1.8125rem + 2px)/3);"></div>
+                    </div>
+                    <div class="col-auto">
+                        <div class="input-group input-group-sm textTag">
+                            <input type="text" class="form-control maxText" value="{{ bathMax }}" placeholder="{{ actualBathMax }}">
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" closeSectionID = "bathSection" class="btn btn-secondary sectionCloseButton">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <!--******************************+++++*************************-->
+                <!--!!!!!!!!!!!!!!!!!!!!!!!!!Location Search Section!!!!!!!!!!!!!!!!!!!!!!!!!-->
+                <div class="row" id="locationSections">
+                    <div class="row" id="continentSection" style="display: none;">
+                        <span class="col-auto"><h3>Continent</h3></span>
+                        <div class="col-auto">
+                            <select class="form-control">
+                                <option id="-1" disabled selected value></option>
+                                {% for continent in continentTypes %}
+                                    <option id="{{ continent.getId() }}"
+                                    {% if continent.getId() == continentTypeID %}
+                                        selected="selected"
+                                    {% endif %}
+                                    >{{ continent.getName() }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <button type="button" closeSectionID = "continentSection" class="btn btn-secondary sectionCloseButton buttonFromLocation">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="row" id="countrySection" style="display: none;">
+                        <span class="col-auto"><h3>Country</h3></span>
+                        <div class="col-auto">
+                            <select class="form-control">
+                                <option id="-1" disabled selected value></option>
+                                {% for country in countryTypes %}
+                                    <option id="{{ country.getId() }}"
+                                    {% if country.getId() == countryTypeID %}
+                                        selected="selected"
+                                    {% endif %}
+                                    >{{ country.getName() }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <button type="button" closeSectionID = "countrySection" class="btn btn-secondary sectionCloseButton buttonFromLocation">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="row" id="stateSection" style="display: none;">
+                        <span class="col-auto"><h3>State</h3></span>
+                        <div class="col-auto">
+                            <input type="text" class="form-control" placeholder="State" value="{{ state }}">
+                        </div>
+                        <button type="button" closeSectionID = "stateSection" class="btn btn-secondary sectionCloseButton buttonFromLocation">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="row" id="localitySection" style="display: none;">
+                        <span class="col-auto"><h3>Locality</h3></span>
+                        <div class="col-auto">
+                            <input type="text" class="form-control" placeholder="City" value="{{ locality }}">
+                        </div>
+                        <button type="button" closeSectionID = "localitySection" class="btn btn-secondary sectionCloseButton buttonFromLocation">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="row" id="zipCodeSection" style="display: none;">
+                        <span class="col-auto"><h3>Zip Code</h3></span>
+                        <div class="col-auto">
+                            <input type="text" class="form-control" placeholder="Zip Code" value="{{ zipCode }}">
+                        </div>
+                        <button type="button" closeSectionID = "zipCodeSection" class="btn btn-secondary sectionCloseButton buttonFromLocation">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <!--!!!!!!!!!!!!!!!!!!!!!!!!!Chip Based Search Sections!!!!!!!!!!!!!!!!!!!!!!!!!-->
+                <!--******************************Appliances*************************-->
+                <div id="listSections">
+                    <div class="row" id = "appliancesSection" style="display: none;">
+                        <div class="sectionTitle"><h3>Appliances</h3></div>
+                        <button type="button" closeSectionID = "appliancesSection" class="btn btn-secondary sectionCloseButton buttonFromList">
+                            <i class="fa fa-times"></i>
+                        </button>
+                        {% for applianceTypeID in applianceTypeIDs %}
+                            <!--locate the applianceType with this ID-->
+                            {% set thisApplianceType = null %}
+                            {% for applianceType in applianceTypes %}
+                                {% if applianceType.getId() == applianceTypeID %}
+                                    {% set thisApplianceType = applianceType %}
+                                {% endif %}
+                            {% endfor %}
+                            <!--display this appliance type-->
+                            <div class="chip" id="{{ thisApplianceType.getId() }}">
+                                {{ thisApplianceType.getName() }}
+                                <button type="button" class="btn btn-light removeChipButton">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        {% endfor %}
+                        <button type="button" class="btn btn-primary chipLarge addChipButton">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                        <!---->
+                        <div class="chipLarge editor">
+                            <div class="editorSearchBar row chip">
+                                <div class="col-auto">
+                                    <input type="text" class="noBoxShadow">
+                                </div>
+                                <div class="col-auto"> 
+                                    <button type="button" class="btn btn-light removeChipButton">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="editorDropdownOuter">
+                                <div class="editorDropdownInner dropdown-menu">
+                                </div>
+                            </div>
+                        </div>
+                        <!---->
+                    </div>
+                    <!--******************************Utilities*************************-->
+                    <div class="row" id = "utilitiesSection" style="display: none;">
+                        <div class="sectionTitle"><h3>Utilities</h3></div>
+                        <button type="button" closeSectionID = "utilitiesSection" class="btn btn-secondary sectionCloseButton buttonFromList">
+                            <i class="fa fa-times"></i>
+                        </button>
+                        {% for utilityTypeID in utilityTypeIDs %}
+                            <!--locate the utilityType with this ID-->
+                            {% set thisUtilityType = null %}
+                            {% for utilityType in utilityTypes %}
+                                {% if utilityType.getId() == utilityTypeID %}
+                                    {% set thisUtilityType = utilityType %}
+                                {% endif %}
+                            {% endfor %}
+                            <!--display this utility type-->
+                            <div class="chip" id="{{ thisUtilityType.getId() }}">
+                                {{ thisUtilityType.getName() }}
+                                <button type="button" class="btn btn-light removeChipButton">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        {% endfor %}
+                        <button type="button" class="btn btn-primary chipLarge addChipButton">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                        <!---->
+                        <div class="chipLarge editor">
+                            <div class="editorSearchBar row chip">
+                                <div class="col-auto">
+                                    <input type="text" class="noBoxShadow">
+                                </div>
+                                <div class="col-auto"> 
+                                    <button type="button" class="btn btn-light removeChipButton">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="editorDropdownOuter">
+                                <div class="editorDropdownInner dropdown-menu">
+                                </div>
+                            </div>
+                        </div>
+                        <!---->
+                    </div>
+                    <!--******************************Perk*************************-->
+                    <div class="row" id = "perksSection" style="display: none;">
+                        <div class="sectionTitle"><h3>Perk</h3></div>
+                        <button type="button" closeSectionID = "perksSection" class="btn btn-secondary sectionCloseButton buttonFromList">
+                            <i class="fa fa-times"></i>
+                        </button>
+                        {% for perkTypeID in perkTypeIDs %}
+                            <!--locate the perkType with this ID-->
+                            {% set thisPerkType = null %}
+                            {% for perkType in perkTypes %}
+                                {% if perkType.getId() == perkTypeID %}
+                                    {% set thisPerkType = perkType %}
+                                {% endif %}
+                            {% endfor %}
+                            <!--display this perk type-->
+                            <div class="chip" id="{{ thisPerkType.getId() }}">
+                                {{ thisPerkType.getName() }}
+                                <button type="button" class="btn btn-light removeChipButton">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        {% endfor %}
+                        <button type="button" class="btn btn-primary chipLarge addChipButton">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                        <!---->
+                        <div class="chipLarge editor">
+                            <div class="editorSearchBar row chip">
+                                <div class="col-auto">
+                                    <input type="text" class="noBoxShadow">
+                                </div>
+                                <div class="col-auto"> 
+                                    <button type="button" class="btn btn-light removeChipButton">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="editorDropdownOuter">
+                                <div class="editorDropdownInner dropdown-menu">
+                                </div>
+                            </div>
+                        </div>
+                        <!---->
+                    </div>
+                    <!--******************************Amenities*************************-->
+                    <div class="row" id = "amenitiesSection" style="display: none;">
+                        <div class="sectionTitle"><h3>Amenities</h3></div>
+                        <button type="button" closeSectionID = "amenitiesSection" class="btn btn-secondary sectionCloseButton buttonFromList">
+                            <i class="fa fa-times"></i>
+                        </button>
+                        {% for amenityTypeID in amenityTypeIDs %}
+                            <!--locate the amenityType with this ID-->
+                            {% set thisAmenityType = null %}
+                            {% for amenityType in amenityTypes %}
+                                {% if amenityType.getId() == amenityTypeID %}
+                                    {% set thisAmenityType = amenityType %}
+                                {% endif %}
+                            {% endfor %}
+                            <!--display this amenity type-->
+                            <div class="chip" id="{{ thisAmenityType.getId() }}">
+                                {{ thisAmenityType.getName() }}
+                                <button type="button" class="btn btn-light removeChipButton">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        {% endfor %}
+                        <button type="button" class="btn btn-primary chipLarge addChipButton">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                        <!---->
+                        <div class="chipLarge editor" id="amenityTypeIDs">
+                            <div class="editorSearchBar row chip">
+                                <div class="col-auto">
+                                    <input type="text" class="noBoxShadow">
+                                </div>
+                                <div class="col-auto"> 
+                                    <button type="button" class="btn btn-light removeChipButton">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="editorDropdownOuter">
+                                <div class="editorDropdownInner dropdown-menu">
+                                </div>
+                            </div>
+                        </div>
+                        <!---->
+                    </div>
+                </div>
+                <!--!!!!!!!!!!!!!!!!!!!!!!!!!Apply Filter Buttons!!!!!!!!!!!!!!!!!!!!!!!!!-->
+                <div class="row btn-row" id="showButtonSection">
+                    <button type="button" openSectionID = "rentSection" class="sectionOpenButton btn btn-primary sectionAddButton">Rent</button>
+                    <button type="button" openSectionID = "squareFootageSection" class="sectionOpenButton btn btn-secondary sectionAddButton">Square Footage</button>
+                    <button type="button" openSectionID = "bedSection" class="sectionOpenButton btn btn-success sectionAddButton">Bedrooms</button>
+                    <button type="button" openSectionID = "bathSection" class="sectionOpenButton btn btn-danger sectionAddButton">Bathrooms</button>
+                    <button type="button" openSectionID = "continentSection" class="sectionOpenButton btn btn-warning sectionAddButton">Continent</button>
+                    <button type="button" openSectionID = "countrySection" class="sectionOpenButton btn btn-info sectionAddButton">Country</button>
+                    <button type="button" openSectionID = "stateSection" class="sectionOpenButton btn btn-dark sectionAddButton">State</button>
+                    <button type="button" openSectionID = "localitySection" class="sectionOpenButton btn btn-primary sectionAddButton">Locality</button>
+                    <button type="button" openSectionID = "zipCodeSection" class="sectionOpenButton btn btn-secondary sectionAddButton">Zip Code</button>
+                    <button type="button" openSectionID = "appliancesSection" class="sectionOpenButton btn btn-success sectionAddButton">Appliances</button>
+                    <button type="button" openSectionID = "utilitiesSection" class="sectionOpenButton btn btn-danger sectionAddButton">Utilities</button>
+                    <button type="button" openSectionID = "perksSection" class="sectionOpenButton btn btn-warning sectionAddButton">Perks</button>
+                    <button type="button" openSectionID = "amenitiesSection" class="sectionOpenButton btn btn-info sectionAddButton">Amenities</button>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <!--Loop through all the properties to display all of them-->
+    {% for property in properties %}
+        <!--If you are searching then hide all the properties that dont current meet your conditions-->
+        <!--If you params you can simply unhide them with ajax-->
+        <div class="card" id="property{{ property.getId() }}"
+            {% if search %}
+                {% if property.getId() not in filteredPropertyIDs %}
+                    style="display:none";
+                {% endif %}
+            {% endif %}
+        >
+            <div class="card-header">
+                <div class="row mainRow">
+                    <!--Find these properties pictures-->
+                    {% set propertyPictures = [] %}
+                    {% for picture in pictures %}
+                        {% if picture.getPropertyid() == property.getId() %}
+                            {% set propertyPictures = propertyPictures|merge([picture]) %}
+                        {% endif %}
+                    {% endfor %}
+                    <!--If this Property has photos then display them-->
+                    {% if propertyPictures|length > 0 %}
+                        <div class="col-md-auto">
+                            <div class="carousel slide" id="slideShow{{ property.getId() }}" data-ride="carousel">
+                                <!--If we only have 1 photo then display that single photo-->
+                                {% if propertyPictures|length == 1 %}
+                                    {% for propertyPicture in propertyPictures %}
+                                        <div class="carousel-inner">
+                                            <div class="carousel-item active">
+                                                <img class="d-block imageInSlide" src="{{ propertyPicture.getLink() }}" alt="{{ propertyPicture.getDetails() }}">
+                                                <div class="carousel-caption d-none d-md-block">
+                                                    <h5 class="carouselCaptionTitle">{{ propertyPicture.getDetails() }}</h5>
+                                                    <br>
+                                                    <p class="carouselCaptionDate">uploaded: {{ propertyPicture.getAdddate()|date("m/d/Y") }}</p>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                    {% endfor %}
+                                <!--Other wise display a carousel of photos-->
+                                {% else %}
+                                    <ol class="carousel-indicators">
+                                        <!--Generate all the thumbnails-->
+                                        {% set slideID = 0 %}
+                                        {% for propertyPicture in propertyPictures %}
+                                            <li data-target="#slideShow{{ property.getId() }}" data-slide-to="{{ slideID }}" 
+                                                {% if slideID == 0 %}
+                                                    class="active"
+                                                {% endif %}
+                                            >
+                                                <img class="d-block w-100 imageInThumbnail" src="{{ propertyPicture.getLink() }}" alt="{{ propertyPicture.getDetails() }}">
+                                            </li>
+                                            {% set slideID = slideID +  1 %}
+                                        {% endfor %}
+                                    </ol>
+                                    <div class="carousel-inner">
+                                        <!--Generate all the Slides-->
+                                        {% set slideID = 0 %}
+                                        {% for propertyPicture in propertyPictures %}
+                                            <div class="carousel-item 
+                                            {% if slideID == 0 %}
+                                                active
+                                            {% endif %}
+                                            ">
+                                                <img id="{{ propertyPicture.getPicturenumberid() }}" class="d-block imageInSlide" src="{{ propertyPicture.getLink() }}" alt="{{ propertyPicture.getDetails() }}">
+                                                <div class="carousel-caption d-none d-md-block">
+                                                    <h5 class="carouselCaptionTitle">{{ propertyPicture.getDetails() }}</h5>
+                                                    <br>
+                                                    <p class="carouselCaptionDate">uploaded: {{ propertyPicture.getAdddate()|date("m/d/Y") }}</p>
+                                                </div>
+                                            </div>
+                                            {% set slideID = slideID +  1 %}
+                                        {% endfor %}
+                                    </div>
+                                    <a class="carousel-control-prev" href="#slideShow{{ property.getId() }}" role="button" data-slide="prev">
+                                        <span class="carousel-controls carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#slideShow{{ property.getId() }}" role="button" data-slide="next">
+                                        <span class="carousel-controls carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="col">
+                        <h1>{{ property.getPostname() }}</h1>
+                        <h5>
+                            <!--find the address for this particular property-->
+                            {% set propertyAddress = null %}
+                            {% for address in addresses %}
+                                {% if address.getId() == property.getAddressid() %}
+                                    {% set propertyAddress = address %}
+                                {% endif %}
+                            {% endfor %}
+
+                            <!--find our continent name-->
+                            {% set continentName = "" %}
+                            {% for continentType in continentTypes %}
+                                {% if continentType.getId() == propertyAddress.getContinenttypeid() %}
+                                    {% set continentName = continentType.getName() %}
+                                {% endif %}
+                            {% endfor %}
+                            <!--find our country name-->
+                            {% set countryName = "" %}
+                            {% for countryType in countryTypes %}
+                                {% if countryType.getId()  == propertyAddress.getCountrytypeid() %}
+                                    {% set countryName = countryType.getName() %}
+                                {% endif %}
+                            {% endfor %}
+                            <!--declare our empty address string-->
+                            {% set formattedAddress = "" %}
+
+                            <!--*****Generate the Address String*****-->
+                            <!--ADDRESS FORMAT => 
+                                :Apt 3A | 
+                                :101 Grover Rd | 
+                                :Edinburg, Texas | 
+                                :United States, America
+                                : | 78342-->
+                            <!--add the apartment identifier if we have it-->
+                            {% if propertyAddress.getApartmentidentifier() %}
+                                {% set formattedAddress = formattedAddress ~ "Apt " ~ propertyAddress.getApartmentidentifier() ~ " | "%}
+                            {% endif %}
+                            <!--add the building identifier and street name combo-->
+                            {% if propertyAddress.getBuildingIndentifier() %}
+                                {% set formattedAddress = formattedAddress ~ propertyAddress.getBuildingIndentifier() %}
+                                {% if propertyAddress.getStreetname() %}
+                                    {% set formattedAddress = formattedAddress ~ " " ~ propertyAddress.getStreetname()%}
+                                {% endif %}
+                                {% set formattedAddress = formattedAddress  ~ " | " %}
+                            {% else %}
+                                {% if propertyAddress.getStreetname() %}
+                                    {% set formattedAddress = formattedAddress ~ propertyAddress.getStreetname() ~ " | " %}
+                                {% endif %}
+                            {% endif %}
+                            <!--add the locality state combo-->
+                            {% if propertyAddress.getLocality() %}
+                                {% set formattedAddress = formattedAddress ~ propertyAddress.getLocality() %}
+                                {% if propertyAddress.getState() %}
+                                    {% set formattedAddress = formattedAddress ~ ", " ~ propertyAddress.getState()%}
+                                {% endif %}
+                                {% set formattedAddress = formattedAddress  ~ " | " %}
+                            {% else %}
+                                {% if propertyAddress.getState() %}
+                                    {% set formattedAddress = formattedAddress ~ propertyAddress.getState() ~ " | " %}
+                                {% endif %}
+                            {% endif %}
+                            <!--we know we are going to have a country and a continent so we simply the problem a bit-->
+                            {% set formattedAddress = formattedAddress ~ countryName ~ ", " ~ continentName %}
+                            <!--add the zip code if we have it-->
+                            {% if propertyAddress.getZipcode() %}
+                                {% set formattedAddress = formattedAddress ~ " | " ~ propertyAddress.getZipcode() %}
+                            {% endif %}
+                            <!--print the string we calculated above-->
+                            {{ formattedAddress }}
+                        </h5>
+                        <p>posted: {{ property.getAdddate()|date("m/d/Y") }} | updated: {{ property.getLastupdated()|date("m/d/Y") }}</p>
+                        <br>
+                        {% if property.getDetails() %}
+                            <h5>{{ property.getDetails() }}</h5>
+                            <br>
+                        {% endif %}
+                        <h4>
+                            <span>{{ property.getSquarefootage() }}</span>&nbsp;sqrft 
+                            | 
+                            <span>{{ property.getBedroomcount() }}</span>&nbsp;bed 
+                            | 
+                            <span>{{ property.getBathroomcount() }}</span>&nbsp;bath
+                        </h4>
+                        <br>
+                        <h2>$<span>{{ property.getExpectedrentpermonth() }}</span></h2>
+                        <br>
+                        {% if search %}
+                            <a href="{{ base_url() }}/viewProperty?propertyID={{ property.getId() }}">
+                                <button type="submit" class="btn btn-default btn-sm btn-primary redirectButton">
+                                    <span>More Details</span>
+                                    <span class="fas fa-chevron-down margin-left: 15px;"></span>
+                                </button>
+                            </a>
+                        {% else %}
+                            <a href="{{ base_url() }}/editProperty?propertyID={{ property.getId() }}">
+                                <button type="submit" class="btn btn-default btn-sm btn-primary redirectButton">
+                                    <span>More Details</span>
+                                    <span class="fas fa-chevron-down margin-left: 15px;"></span>
+                                </button>
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    {% if user %}
+        <div class="container" id="addPropertySection">
+            <form action="{{ base_url() }}/addProperty" method ="post">
+                <button type="submit" class="btn btn-primary" id="addPropertyButton">Add Property</button>
+            </form>
+        </div>
+    {% endif %}
+
+</span>
+{% endblock %}
+
+{% block styles %}
+    <!--style sheet-->
+    <link rel="stylesheet" href="{{ base_url() }}/../../PUBLIC/shared/css.css">
+    <link rel="stylesheet" href="{{ base_url() }}/../../TEMPLATES/properties/css.css">
+{% endblock %}
+
+{% block scripts %}
+    <!--javascript-->
+    <script type="module" src="{{ base_url() }}/../../PUBLIC/shared/js.js"></script>
+    <script src="{{ base_url() }}/../../TEMPLATES/properties/js.js"></script>
+{% endblock %}

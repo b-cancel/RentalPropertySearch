@@ -1,0 +1,220 @@
+{% extends 'layout/html.html' %}
+
+{% block content %}
+
+    {% if pictures|length > 0 %}
+        <div class="col-md-auto" id="imageColumn">
+            <div class="carousel slide" id="slideShow{{ property.getId() }}" data-ride="carousel">
+                <!--If we only have 1 photo then display that single photo-->
+                {% if pictures|length == 1 %}
+                    {% for picture in pictures %}
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img class="d-block imageInSlide" src="{{ picture.getLink() }}" alt="{{ picture.getDetails() }}">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5 class="carouselCaptionTitle">{{ picture.getDetails() }}</h5>
+                                    <br>
+                                    <p class="carouselCaptionDate">uploaded: {{ picture.getAdddate()|date("m/d/Y") }}</p>
+                                </div>
+                            </div>
+                        </div> 
+                    {% endfor %}
+                <!--Other wise display a carousel of photos-->
+                {% else %}
+                    <ol class="carousel-indicators">
+                        <!--Generate all the thumbnails-->
+                        {% set slideID = 0 %}
+                        {% for picture in pictures %}
+                            <li data-target="#slideShow{{ property.getId() }}" data-slide-to="{{ slideID }}" 
+                                {% if slideID == 0 %}
+                                    class="active"
+                                {% endif %}
+                            >
+                                <img class="d-block w-100 imageInThumbnail" src="{{ picture.getLink() }}" alt="{{ picture.getDetails() }}">
+                            </li>
+                            {% set slideID = slideID +  1 %}
+                        {% endfor %}
+                    </ol>
+                    <div class="carousel-inner">
+                        <!--Generate all the Slides-->
+                        {% set slideID = 0 %}
+                        {% for picture in pictures %}
+                            <div class="carousel-item 
+                            {% if slideID == 0 %}
+                                active
+                            {% endif %}
+                            ">
+                                <img id="{{ picture.getPicturenumberid() }}" class="d-block imageInSlide" src="{{ picture.getLink() }}" alt="{{ picture.getDetails() }}">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5 class="carouselCaptionTitle">{{ picture.getDetails() }}</h5>
+                                    <br>
+                                    <p class="carouselCaptionDate">uploaded: {{ picture.getAdddate()|date("m/d/Y") }}</p>
+                                </div>
+                            </div>
+                            {% set slideID = slideID +  1 %}
+                        {% endfor %}
+                    </div>
+                    <a class="carousel-control-prev" href="#slideShow{{ property.getId() }}" role="button" data-slide="prev">
+                        <span class="carousel-controls carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#slideShow{{ property.getId() }}" role="button" data-slide="next">
+                        <span class="carousel-controls carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+    <hr class="style1">
+    <div class="card-body">
+        <h1 class="card-title">{{ property.getPostname() }}</h1>
+        <h5 class="card-title">
+            <!--declare our empty address string-->
+            {% set formattedAddress = "" %}
+            <!--*****Generate the Address String*****-->
+            <!--ADDRESS FORMAT => 
+                :Apt 3A | 
+                :101 Grover Rd | 
+                :Edinburg, Texas | 
+                :United States, America
+                : | 78342-->
+            <!--add the apartment identifier if we have it-->
+            {% if address.getApartmentidentifier() %}
+                {% set formattedAddress = formattedAddress ~ "Apt " ~ address.getApartmentidentifier() ~ " | "%}
+            {% endif %}
+            <!--add the building identifier and street name combo-->
+            {% if address.getBuildingIndentifier() %}
+                {% set formattedAddress = formattedAddress ~ address.getBuildingIndentifier() %}
+                {% if address.getStreetname() %}
+                    {% set formattedAddress = formattedAddress ~ " " ~ address.getStreetname()%}
+                {% endif %}
+                {% set formattedAddress = formattedAddress  ~ " | " %}
+            {% else %}
+                {% if address.getStreetname() %}
+                    {% set formattedAddress = formattedAddress ~ address.getStreetname() ~ " | " %}
+                {% endif %}
+            {% endif %}
+            <!--add the locality state combo-->
+            {% if address.getLocality() %}
+                {% set formattedAddress = formattedAddress ~ address.getLocality() %}
+                {% if address.getState() %}
+                    {% set formattedAddress = formattedAddress ~ ", " ~ address.getState()%}
+                {% endif %}
+                {% set formattedAddress = formattedAddress  ~ " | " %}
+            {% else %}
+                {% if address.getState() %}
+                    {% set formattedAddress = formattedAddress ~ address.getState() ~ " | " %}
+                {% endif %}
+            {% endif %}
+            <!--we know we are going to have a country and a continent so we simply the problem a bit-->
+            {% set formattedAddress = formattedAddress ~ country.getName() ~ ", " ~ continent.getName() %}
+            <!--add the zip code if we have it-->
+            {% if address.getZipcode() %}
+                {% set formattedAddress = formattedAddress ~ " | " ~ address.getZipcode() %}
+            {% endif %}
+            <!--print the string we calculated above-->
+            {{ formattedAddress }}
+        </h5>
+        <p class="card-text">
+            <!-- All of this source code is in an .html file -->
+            <!-- property is the object passed after querying the database -->
+            <!-- If there are any details in the property row, then display the details -->
+            {% if property.getDetails() %}
+                <h5>{{ property.getDetails() }}</h5>
+            {% endif %}
+            <br>
+            <!-- This code will display information to the user based on the query passed to this page -->
+            <div class="row">
+                <div class="col">$<span><h4>{{ property.getExpectedrentpermonth() }}</h4></span></div> |
+                <div class="col"><span><h4>{{ property.getSquarefootage() }}</h4></span>&nbsp;sqrft</div> |
+                <div class="col"><span><h4>{{ property.getBedroomcount() }}</h4></span>&nbsp;bed</div> |
+                <div class="col"><span><h4>{{ property.getBathroomcount() }}</h4></span>&nbsp;bath</div>
+            </div>
+            <hr class="style1">
+            <!--chip section start-->
+            <div class="row">
+                <!-- Get all appliances for propertyID -->
+                <div class="sectionTitle"><h3>Appliances</h3></div>
+                {% for appliance in appliances %}
+                    <div class="chip">
+                        {{ appliance.getAppliance() }}
+                    </div>
+                {% endfor %}
+            </div>
+            <hr class="style1">
+            <div class="row">
+                <!-- Ger all the utilities from propertyID -->
+                <div class="sectionTitle"><h3>Utilities</h3></div>
+                {% for utility in utilities %}
+                    <div class="chip">
+                        {{ utility.getUtility() }}
+                    </div>
+                {% endfor %}
+            </div>
+            <hr class="style1">
+            <div class="row">
+                <!-- Get all the perks for this property -->
+                <div class="sectionTitle"><h3>Perks</h3></div>
+                {% for perk in perks %}
+                    <div class="chip">
+                        {{ perk.getPerk() }}
+                    </div>
+                {% endfor %}
+            </div>
+            <hr class="style1">
+            <div class="row">
+                <!-- Get all the amenities from this property -->
+                <div class="sectionTitle"><h3>Amenities</h3></div>
+                <!-- If there were multiple results for amenities -->
+                <!-- Then loop through them using Twig -->
+                {% for amenity in amenities %}
+                    <div class="chip">
+                        <!-- Displayes the information for this result -->
+                        {{ amenity.getAmenity() }}
+                    </div>
+                {% endfor %}
+            </div>
+            <hr class="style1">
+            <div class="row">
+                <div class="sectionTitle"><h3>Issues</h3></div>
+                {% for issue in issues %}
+                    <div class="chip"> {{ issue.getIssue() }} </div>
+                {% endfor %}
+            </div>
+            <!--chip section end-->
+        </p>
+        <hr class="style1">
+        <div class="row">
+            <div class="col-lg m-3" id="ownerName">
+                <span class="fas fa-user"></span> {{ owner.getName() }}
+            </div>
+            <div class="col-lg m-3" id="ownerEmail">
+                <span class="fas fa-envelope"></span> {{ owner.getEmail() }}
+            </div>
+            <div class="col-lg m-3" id="ownerPhones">
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-dark"><span class="fas fa-phone"></span> Phone Numbers</li>
+                    {% for phone in phones %}
+                        <li class="list-group-item">{{ phone.getFullPhone() }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <!--chip section end-->
+        <p class="card-text"><small class="text-muted">posted: {{ property.getAdddate()|date("m/d/Y") }} | updated: {{ property.getLastupdated()|date("m/d/Y") }}</small></p>
+    </div>
+
+{% endblock %}
+
+{% block styles %}
+    <!--style sheet-->
+    <link rel="stylesheet" href="{{ base_url() }}/../../PUBLIC/shared/css.css">
+    <link rel="stylesheet" href="{{ base_url() }}/../../TEMPLATES/viewProperty/css.css">
+{% endblock %}
+
+{% block scripts %}
+    <!--javascript-->
+    <script type="module" src="{{ base_url() }}/../../PUBLIC/shared/js.js"></script>
+    <script src="{{ base_url() }}/../../TEMPLATES/viewProperty/js.js"></script>
+{% endblock %}

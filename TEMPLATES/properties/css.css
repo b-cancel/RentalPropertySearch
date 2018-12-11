@@ -1,0 +1,130 @@
+.card {
+    margin-bottom: 15px;
+}
+
+#continentSection, 
+#countrySection, 
+#stateSection, 
+#localitySection, 
+#zipcodeSection{
+    margin: 5px;
+}
+
+.sectionTitle {
+    margin: 0px;
+    margin-left: 5px;
+    margin-right: 5px;
+    display: inline-block;
+}
+
+/*-----other stuff-----*/
+
+#addPropertySection {
+    overflow: auto;
+    margin-bottom: 15px;
+}
+
+#addPropertyButton {
+    float: right;
+}
+
+.carousel {
+    width: 350px;
+    height: 350px;
+}
+
+/*-----slider text boxes-----*/
+
+.col-auto {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.sliderContainer {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.sliderTitle {
+    margin: auto;
+}
+
+.sliderClass {
+    height: auto;
+}
+
+.rentTag {
+    width: 75px;
+}
+
+.sqftTag {
+    width: 90px;
+}
+
+.textTag {
+    width: 50px;
+}
+
+/*-----slider override-----*/
+
+.ui-slider-range {
+    background-color: #38c;
+}
+
+.ui-state-hover {
+    border: 1px solid #c5c5c5 !important;
+    background-color: #f6f6f6 !important;
+}
+
+.ui-state-active {
+    border: 1px solid #c5c5c5 !important;
+    background-color: #f6f6f6 !important;
+}
+
+/*-----filter remove button-----*/
+.sectionCloseButton {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    text-align: center;
+    padding: 0px;
+    line-height: 100%;
+    font-size: 12px;
+}
+
+.buttonFromLocation, .buttonFromList, .sectionTitle {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.buttonFromList {
+    margin-right: 15px;
+}
+
+/*-----filter add button-----*/
+
+.sectionAddButton {
+    margin: 5px;
+}
+
+/*-----add spacing between sections-----*/
+
+#allSections > div {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#allSections > #locationSections, #allSections > #listSections {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+#allSections > #listSections > div {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#allSections > #locationSections > div {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}

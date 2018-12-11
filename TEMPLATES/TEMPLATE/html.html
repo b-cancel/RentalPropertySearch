@@ -1,0 +1,21 @@
+{% extends 'layout/html.html' %}
+
+{% block content %}
+
+    <div class="card" style="width: 18rem;">
+        card with hi
+    </div>
+
+{% endblock %}
+
+{% block styles %}
+    <!--style sheet-->
+    <link rel="stylesheet" href="{{ base_url() }}/../../PUBLIC/shared/css.css">
+    <link rel="stylesheet" href="{{ base_url() }}/../../TEMPLATES/TEMPLATE/css.css">
+{% endblock %}
+
+{% block scripts %}
+    <!--javascript-->
+    <script type="module" src="{{ base_url() }}/../../PUBLIC/shared/js.js"></script>
+    <script src="{{ base_url() }}/../../TEMPLATES/TEMPLATE/js.js"></script>
+{% endblock %}
