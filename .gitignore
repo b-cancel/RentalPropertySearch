@@ -5,7 +5,7 @@ models/Map/*
 schema/*
 vendor/*
 ./disable/composer.json
-composer.lock
+./disable/composer.lock
 propel.yml
 propel.yml.dist
 schema.*
