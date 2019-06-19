@@ -8,19 +8,19 @@ NOTE: The Videos and Images are from footage taken during development, the popul
 <br>
 All The Apartment Filters Closed
 <br>
-<img src="https://drive.google.com/uc?export=download&id=1rYlG6lVJOM06o9Vqst67oIt0XiXtvUru"/>
+<img src="https://drive.google.com/uc?export=download&id=1rYlG6lVJOM06o9Vqst67oIt0XiXtvUru" width="500px"/>
 <br>
 Some Apartment Filters Open
 <br>
-<img src="https://drive.google.com/uc?export=download&id=1z3xWnd6729B3D8Jo5Ku8m5IDs5-gfT3i"/>
+<img src="https://drive.google.com/uc?export=download&id=1z3xWnd6729B3D8Jo5Ku8m5IDs5-gfT3i" width="500px"/>
 <br>
-How An Apartment Show Up On the List
+How An Apartment Shows Up On The Result List (placeholders present)
 <br>
-<img src="https://drive.google.com/uc?export=download&id=1h6EIJSBIeVundJSUeOnXmA5wrgjpd7Fg"/>
+<img src="https://drive.google.com/uc?export=download&id=1h6EIJSBIeVundJSUeOnXmA5wrgjpd7Fg" width="500px"/>
 <br>
-How Apartment Details Show Up
+How Apartment Details Show Up (the face is a placeholder)
 <br>
-<img src="https://drive.google.com/uc?export=download&id=1G479KE2JdvkjsrDRZC4DjLxncFipOPut"/>
+<img src="https://drive.google.com/uc?export=download&id=1G479KE2JdvkjsrDRZC4DjLxncFipOPut" width="500px"/>
 <br>
 
 <br>
