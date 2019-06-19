@@ -1,15 +1,36 @@
 EQUAL CONTRIBUTIONS BY
-
+<br>
 - Jafet Reyes
 - Gerardo Guerrero / Durzo95
 - Bryan Cancel
+<br>
+NOTE: The Videos and Images are from footage taken during development, the populated version of the database we used to show functionality is lost. I will try to recreate it soon and rerecord. But these videos and images should do for now
+<br>
+All The Apartment Filters Closed
+<br>
+<img src="https://drive.google.com/uc?export=download&id=1rYlG6lVJOM06o9Vqst67oIt0XiXtvUru"/>
+<br>
+Some Apartment Filters Open
+<br>
+<img src="https://drive.google.com/uc?export=download&id=1z3xWnd6729B3D8Jo5Ku8m5IDs5-gfT3i"/>
+<br>
+How An Apartment Show Up On the List
+<br>
+<img src="https://drive.google.com/uc?export=download&id=1h6EIJSBIeVundJSUeOnXmA5wrgjpd7Fg"/>
+<br>
+How Apartment Details Show Up
+<br>
+<img src="https://drive.google.com/uc?export=download&id=1G479KE2JdvkjsrDRZC4DjLxncFipOPut"/>
+<br>
 
-
+<br>
+Steps To Get The Project Working
+<br>
 ORDER IS IMPORTANT
 
--1. install xampp and run apache and sql
-0. import the database file in the database folder into http://localhost/phpmyadmin/
-1. .gitignore should contain
+1. install xampp and run apache and sql
+2. import the database file in the database folder into http://localhost/phpmyadmin/
+3. .gitignore should contain
     FOLDERS
     a. generated-conf 
     b. generated-sql 
@@ -21,9 +42,9 @@ ORDER IS IMPORTANT
     b. composer.lock
     c. propel.yml
     d. propel.yml.dist
-2. clone the repository
-3. run "composer require slim/slim" in root directory
-4. edit the generated "composer.json"
+4. clone the repository
+5. run "composer require slim/slim" in root directory
+6. edit the generated "composer.json"
 {
     "minimum-stability": "dev",
 
@@ -31,9 +52,9 @@ ORDER IS IMPORTANT
         "slim/slim": "^3.11"
     }
 }
-5. run "composer require propel/propel" in root directory
-6. run "composer require slim/twig-view" in root directory
-7. run "vendor\bin\propel.bat init" in root directory
+7. run "composer require propel/propel" in root directory
+8. run "composer require slim/twig-view" in root directory
+9. run "vendor\bin\propel.bat init" in root directory
     a. mysql ENTER
     b. ENTER
     c. ENTER
@@ -47,8 +68,8 @@ ORDER IS IMPORTANT
     k. ENTER
     l. ENTER
     m. [correct ?] yes ENTER
-8. edit the generated "composer.json"
+10. edit the generated "composer.json"
 "autoload": {
   "classmap" : ["models"]
 }
-9. run "composer dump-autoload" in root directory
+11. run "composer dump-autoload" in root directory
