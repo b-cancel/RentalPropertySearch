@@ -6,6 +6,7 @@ EQUAL CONTRIBUTIONS BY
 <br>
 NOTE: The Videos and Images are from footage taken during development, the populated version of the database we used to show functionality is lost. I will try to recreate it soon and rerecord. But these videos and images should do for now
 <br>
+<br>
 All The Apartment Filters Closed
 <br>
 <img src="https://drive.google.com/uc?export=download&id=1o7rEeuBLOChTMqP39GfzYRtrdRG6jjPj" width="850px"/>
