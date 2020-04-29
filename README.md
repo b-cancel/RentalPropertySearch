@@ -6,23 +6,14 @@ EQUAL CONTRIBUTIONS BY
 <br>
 NOTE: The Videos and Images are from footage taken during development, the populated version of the database we used to show functionality is lost. I will try to recreate it soon and rerecord. But these videos and images should do for now
 <br>
-<br>
-All The Apartment Filters Closed
-<br>
-<img src="https://drive.google.com/uc?export=download&id=1o7rEeuBLOChTMqP39GfzYRtrdRG6jjPj" width="850px"/>
-<br>
-Some Apartment Filters Open
-<br>
-<img src="https://drive.google.com/uc?export=download&id=1z3xWnd6729B3D8Jo5Ku8m5IDs5-gfT3i" width="850px"/>
-<br>
-How An Apartment Shows Up On The Result List (placeholders present)
-<br>
-<img src="https://drive.google.com/uc?export=download&id=1h6EIJSBIeVundJSUeOnXmA5wrgjpd7Fg" width="850px"/>
-<br>
-How Apartment Details Show Up (the face is a placeholder)
-<br>
-<img src="https://drive.google.com/uc?export=download&id=1G479KE2JdvkjsrDRZC4DjLxncFipOPut" width="850px"/>
-<br>
+
+<p float="left">
+    <img src="https://imgur.com/s6r0lE5.jpg"/>
+    <img src="https://imgur.com/lxIozzq.jpg"/>
+    <img src="https://imgur.com/O3xUiho.jpg"/>
+    <img src="https://imgur.com/RLhARvI.jpg"/>
+    <img src="https://imgur.com/mtDvR8K.jpg"/>
+</p>
 
 <br>
 Steps To Get The Project Working
